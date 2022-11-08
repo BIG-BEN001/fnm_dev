@@ -19,6 +19,11 @@
 	</style>
     <link rel="stylesheet" href="{{asset('backend/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('backend/css/font-awesome.min.css')}}">
+	{{-- <link href="{{asset('frontend/lib/animate/animate.css')}}" rel="stylesheet"> --}}
+	{{-- <link href="{{asset('frontend/lib/animate/animate.min.css')}}" rel="stylesheet"> --}}
+	<link href="frontend/lib/animate/animate.min.css" rel="stylesheet">
+	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+	{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/> --}}
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="{{asset('backend/css/responsive.css')}}">
 	<link rel="stylesheet" href="{{asset('backend/css/style.css')}}">
@@ -30,6 +35,9 @@
 	<script src="{{asset('backend/js/jquery-3.6.0.min.js')}}"></script>
 	<script src="{{asset('backend/js/popper.min.js')}}"></script>
 	<script src="{{asset('backend/js/bootstrap.min.js')}}"></script>
+	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+	<script src="{{asset('frontend/lib/easing/easing.min.js')}}"></script>
+	<script src="{{asset('frontend/js/owl.carousel.min.js')}}"></script>
 	@stack('scripts')
   </body>
 </html>

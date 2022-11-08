@@ -84,6 +84,7 @@ config(['cart.tax' => $tax_rate]);
 					<div class="col-lg-7">
 						<h5>{{ __('Shipping Information') }}</h5>
 						<p>{{ __('Already have an account?') }} <a href="{{ route('frontend.login') }}">{{ __('login') }}</a></p>
+						<span class="text-danger error-tex">* Required Fields</span>
 						<div class="row">
 							<div class="col-md-12">
 								<div class="mb-3">

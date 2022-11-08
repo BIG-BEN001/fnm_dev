@@ -26,7 +26,7 @@ $fields = array();
                     "ttl"=> "900",
                     "tel"=> "254741112070",
                     "eml"=> "benjaminochieng99@gmail.com",
-                    "vid"=> "demo",
+                    "vid"=> "ecml",
                     "curr"=> "KES",
                     // "p1"=> "airtel",
                     // "p2"=> "020102292999",
@@ -44,7 +44,7 @@ $fields = array();
     // The datastring IS concatenated from the data above
     // */
     $datastring =  $fields['live'].$fields['oid'].$fields['inv'].$fields['ttl'].$fields['tel'].$fields['eml'].$fields['vid'].$fields['curr'].$fields['cbk'].$fields['cst'].$fields['crl'];
-    $hashkey ="edgecityk58d8e8dd";//use "demoCHANGED" for testing where vid is set to "demo"
+    $hashkey ='edgecityk58d8e8dd';//use "demoCHANGED" for testing where vid is set to "demo"
 
     // /********************************************************************************************************
     // * Generating the HashString sample

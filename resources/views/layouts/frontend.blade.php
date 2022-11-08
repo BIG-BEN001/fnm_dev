@@ -73,7 +73,10 @@
 	<link href="{{asset('frontend/css/bootstrap-icons.css')}}" rel="stylesheet">
 	<link href="{{asset('frontend/css/owl.carousel.min.css')}}" rel="stylesheet">
 	<link href="{{asset('frontend/css/jquery.gritter.min.css')}}" rel="stylesheet">
-
+	{{-- <link href="{{asset('frontend/lib/animate/animate.css')}}" rel="stylesheet"> --}}
+	<link href="frontend/lib/animate/animate.min.css" rel="stylesheet">
+	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+	{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/> --}}
 	<link href="{{asset('frontend/css/responsive.css')}}" rel="stylesheet">
 	<link href="{{asset('frontend/css/style.css')}}" rel="stylesheet">
 	@stack('style')
@@ -115,6 +118,8 @@
 	<script src="{{asset('frontend/js/bootstrap.min.js')}}"></script>
 	<script src="{{asset('frontend/js/scrolltop.js')}}"></script>
 	<script src="{{asset('frontend/js/jquery.nicescroll.min.js')}}"></script>
+	<script src="{{asset('frontend/lib/easing/easing.min.js')}}"></script>
+	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 	<script src="{{asset('frontend/js/owl.carousel.min.js')}}"></script>
 	<script src="{{asset('frontend/js/jquery.popupoverlay.min.js')}}"></script>
 	<script src="{{asset('frontend/js/jquery.gritter.min.js')}}"></script>

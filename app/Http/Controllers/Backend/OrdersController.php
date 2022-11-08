@@ -238,13 +238,13 @@ class OrdersController extends Controller
 			$random_code = random_int(100000, 999999);
 			$transaction_no = 'TXN-1'.$random_code;
 			$data = array(
-				'transaction_no' => $transaction_no,
+				// 'transaction_no' => $transaction_no,
 				'payment_status_id' => $payment_status_id,
 				'order_status_id' => $order_status_id
 			);
 		}else{
 			$data = array(
-				'transaction_no' => NULL,
+				// 'transaction_no' => NULL,
 				'payment_status_id' => $payment_status_id,
 				'order_status_id' => $order_status_id
 			);
@@ -460,7 +460,7 @@ class OrdersController extends Controller
 																	<tr><td style="font-size:16px;font-weight:bold;">'.__('BILL TO').':</td></tr>
 																	<tr><td><strong>'.$mdata->customer_name.'</strong></td></tr>
 																	<tr><td>'.$mdata->customer_address.'</td></tr>
-																	<tr><td>'.$mdata->city.', '.$mdata->state.', '.$mdata->zip_code.', '.$mdata->country.'</td></tr>
+																	<tr><td>'.$mdata->city.', '.$mdata->country.'</td></tr>
 																	<tr><td>'.$mdata->customer_email.'</td></tr>
 																	<tr><td>'.$mdata->customer_phone.'</td></tr>
 																</table>

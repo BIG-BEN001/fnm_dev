@@ -1,6 +1,8 @@
 (function($) {
     'use strict';
 
+    AOS.init();
+
     //Preloader
     var win = $(window);
     win.on('load', function() {
@@ -96,7 +98,10 @@
 
     $('.home-slider').owlCarousel({
         navText: ['<i class="bi bi-arrow-left"></i>', '<i class="bi bi-arrow-right"></i>'],
-        rtl: isRTL,
+        // rtl: isRTL,
+        autoplay: true,
+        // animateOut: 'fadeOut',
+        transitionStyle: "fade",
         loop: true,
         nav: true,
         dots: true,
@@ -105,26 +110,26 @@
         smartSpeed: 1000,
         responsive: {
             0: {
-                items: 1
+                items: 2
             },
             400: {
-                items: 1
+                items: 2
             },
             600: {
-                items: 1
+                items: 2
             },
             900: {
-                items: 1
+                items: 2
             },
             1000: {
-                items: 1
+                items: 2
             }
         }
     });
 
     $('.brands-carousel').owlCarousel({
         navText: ['<i class="bi bi-arrow-left"></i>', '<i class="bi bi-arrow-right"></i>'],
-        rtl: isRTL,
+        // rtl: isRTL,
         loop: true,
         nav: true,
         dots: false,
@@ -153,7 +158,8 @@
 
     $('.category-carousel').owlCarousel({
         navText: ['<i class="bi bi-arrow-left"></i>', '<i class="bi bi-arrow-right"></i>'],
-        rtl: isRTL,
+        // rtl: isRTL,
+        autoplay: true,
         loop: true,
         nav: true,
         dots: false,
@@ -163,12 +169,18 @@
         smartSpeed: 1000,
         responsive: {
             0: {
-                items: 1
+                items: 2
+            },
+            300: {
+                items: 2
             },
             400: {
-                items: 1
+                items: 2
             },
             600: {
+                items: 2
+            },
+            700: {
                 items: 2
             },
             900: {

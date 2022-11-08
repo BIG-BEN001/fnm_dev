@@ -2,7 +2,7 @@
 <div class="row">
 	@if(count($datalist)>0)
 	@foreach ($datalist as $row)
-	<div class="col-lg-4">
+	<div class="col-lg-4 col-md-4 col-sm-4">
 		<div class="item-card mb25">
 			<div class="item-image">
 				@if($row->labelname != '')

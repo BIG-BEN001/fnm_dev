@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Route::get('/ipay', [App\Http\Controllers\HomeController::class, 'ipay']);
+Route::get('/mail_test', [App\Http\Controllers\HomeController::class, 'mail_test']);
+Route::get('/ipay_test', [App\Http\Controllers\HomeController::class, 'ipay_test']);
 Route::post('/ipay', [App\Http\Controllers\HomeController::class, 'ipay_post']);
 // Route::get('/ipay_callback', [App\Http\Controllers\HomeController::class, 'ipay_callback']);
 //About

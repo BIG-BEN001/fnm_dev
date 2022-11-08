@@ -17,7 +17,7 @@
 				</div>
 				<div class="col-lg-6">
 					<ul class="top-list">
-						<li><a href="{{ route('frontend.order-tracking') }}"><i class="bi bi-geo"></i>{{ __('Order Tracking') }}</a></li>
+						<li><a href="{{ route('frontend.order-tracking') }}"><i class="bi bi-geo"></i>{{ __('Track Your Orders') }}</a></li>
 						@if (Route::has('login'))
 						@auth
 						<li>

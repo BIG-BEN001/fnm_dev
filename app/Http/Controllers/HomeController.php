@@ -12,8 +12,12 @@ use App\Models\Country;
 use App\Models\Shipping;
 use Cart;
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
+// use PHPMailer\PHPMailer\SMTP;
+// use PHPMailer\PHPMailer\Exception;
+require 'C:\xampp\htdocs\bshop\vendor\phpmailer2\vendor\autoload.php';
+require 'C:\xampp\htdocs\bshop\vendor\phpmailer2\vendor\phpmailer\phpmailer\src\Exception.php';
+require 'C:\xampp\htdocs\bshop\vendor\phpmailer2\vendor\phpmailer\phpmailer\src\PHPMailer.php';
+require 'C:\xampp\htdocs\bshop\vendor\phpmailer2\vendor\phpmailer\phpmailer\src\SMTP.php';
 use URL;
 use Input;
 
@@ -108,6 +112,45 @@ class HomeController extends Controller
     {
         return view('frontend.about');
     }
+
+    public function ipay_test()
+    {
+        return view('ipay');
+    }
+
+    public function mail_test()
+    {
+            //Load Composer's autoloader
+
+    
+    $mail = new PHPMailer(true);
+        //Server settings
+        $mail->SMTPDebug = 2;                      
+        $mail->isSMTP();    
+        $mail->Mailer = "smtp";                                        
+        $mail->Host = 'mail.fnmbrand.com';                    
+        $mail->SMTPAuth   = true;  
+        $mail->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            )
+        );                                 
+        $mail->Username = 'info@fnmbrand.com';
+        $mail->Password = 'goodluck@2022';
+        $mail->SMTPSecure = 'ssl';
+        $mail->Port = 465; 
+        
+        //Recipients
+        $mail->setFrom('info@fnmbrand.com','Kenlinks Solutions Ltd');
+        $mail->addAddress('benjaminochieng99@gmail.com');     //Add a recipient
+        //Content
+        $mail->isHTML(true);                                  //Set email format to HTML
+        $mail->Subject = 'Email Verification';
+        $mail->Body    = '<h3>Click the link below to verify your email</h3>';
+        $mail->send();
+    }
 	
     public function notFoundPage()
     {
@@ -118,3 +161,31 @@ class HomeController extends Controller
 		return view('frontend.pesatel');
 	}
 }
+// $mail = new PHPMailer();
+// //Server settings
+//        $mail->SMTPDebug = 4;                      
+// $mail->isSMTP();    
+// $mail->Mailer = "smtp";                                        
+// $mail->Host = 'localhost';                    
+// $mail->SMTPAuth   = false;  
+// $mail->SMTPOptions = array(
+//     'ssl' => array(
+//         'verify_peer' => false,
+//         'verify_peer_name' => false,
+//         'allow_self_signed' => true
+//     )
+// );                                 
+// $mail->Username = 'info@fnmbrand.com';
+// $mail->Password = 'goodluck@2022';
+// $mail->SMTPAutoTLS = false;
+// $mail->SMTPSecure = false;
+// $mail->Port = 25; 
+
+// //Recipients
+// $mail->setFrom('info@fnmbrand.com','Kenlinks Solutions Ltd');
+// $mail->addAddress('benjaminochieng99@gmail.com');     //Add a recipient
+// //Content
+// $mail->isHTML(true);                                  //Set email format to HTML
+// $mail->Subject = 'Email Verification';
+// $mail->Body    = '<h3>Click the link below to verify your email</h3>';
+// $mail->send();

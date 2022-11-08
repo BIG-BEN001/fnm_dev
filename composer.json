@@ -17,7 +17,7 @@
         "laravel/ui": "^3.2",
         "mollie/laravel-mollie": "^2.19",
         "paypal/rest-api-sdk-php": "^1.14",
-        "phpmailer/phpmailer": "^6.5",
+        "phpmailer/phpmailer": "^6.6",
         "phpoffice/phpspreadsheet": "^1.20",
         "razorpay/razorpay": "^2.8",
         "stripe/stripe-php": "^7.97",

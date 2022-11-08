@@ -34,7 +34,8 @@ use PayPal\Api\RedirectUrls;
 use PayPal\Api\Transaction;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\InvoiceMail;
 use Razorpay\Api\Api;
 
 use Mollie\Laravel\Facades\Mollie;
@@ -92,7 +93,7 @@ class CheckoutFrontController extends Controller
 			// 'payment_method' => 'required',
 			'shipping_method' => 'required',
 			'email' => 'required|email|unique:users',
-			'password' => 'required|confirmed',
+			// 'password' => 'required|confirmed',
         ]);
 
 		
@@ -137,7 +138,7 @@ class CheckoutFrontController extends Controller
 				// 'payment_method' => 'required',
 				'shipping_method' => 'required',
 				'email' => 'required|email|unique:users',
-				'password' => 'required|confirmed',
+				// 'password' => 'required|confirmed',
 			]);
 
 			$userData = array(
@@ -169,7 +170,7 @@ class CheckoutFrontController extends Controller
 				// 'payment_method' => 'required',
 				'shipping_method' => 'required',
 				'email' => 'required|email|unique:users',
-				'password' => 'required|confirmed',
+				// 'password' => 'required|confirmed',
 			]);
 
 			$customer_id = $request->input('customer_id');
@@ -290,7 +291,8 @@ class CheckoutFrontController extends Controller
 			$t_amount = comma_remove($total_amount);
 			
 			$totalAmount = $t_amount + $shippingFee;
-
+			$generated_hash = "";
+			$fields = array();
 
 			// iPay method
 			if($payment_method_id == 7){
@@ -298,29 +300,30 @@ class CheckoutFrontController extends Controller
 				$fields = array();
 
 				$fields = array(
-					"live"=> "0",
-					"oid"=> "$order_no",
+					"live"=> "1",
+					"oid"=> $order_no,
 					"inv"=> "123456789",
 					"ttl"=> "1",
-					"tel"=> "$request->phone",
-					"eml"=> "$request->email",
+					"tel"=> $request->phone,
+					"eml"=> $request->email,
 					"vid"=> "fnmbrand",
 					"curr"=> "KES",
-					"p1"=> '',
+					"creditcard"=> "0",
+					"p1"=> "",
 					"p2"=> "",
 					"p3"=> "",
 					"p4"=> "",                        
 					"cbk"=> "http://shop.fikasystems.com/ipay_callback",     
 					"cst"=> "1",
 					"crl"=> "2",
-					"autopay" => "0"           
+					// "autopay" => "0"           
 							
 				);
-
-				$datastring =  $fields['live'].$fields['oid'].$fields['inv'].$fields['ttl'].$fields['tel'].$fields['eml'].$fields['vid'].$fields['curr'].$fields['p1'].$fields['p2'].$fields['p3'].$fields['p4'].$fields['cbk'].$fields['cst'].$fields['crl'];
+				// $hashkey ='rwn9Pgzu*N7%A2s$AM?#V2GfbfQUMVsk';
+				$datastring =  $fields['live'].$fields['oid'].$fields['inv'].$fields['ttl'].$fields['tel'].$fields['eml'].$fields['vid'].$fields['curr'].$fields['cbk'].$fields['cst'].$fields['crl'];
 				$hashkey ='rwn9Pgzu*N7%A2s$AM?#V2GfbfQUMVsk';//use "demoCHANGED" for testing where vid is set to "demo"
 				$generated_hash = hash_hmac('sha1',$datastring , $hashkey);
-				return Redirect::to("https://payments.ipayafrica.com/v3/ke?live={$fields['live']}&oid={$fields['oid']}&inv={$fields['inv']}&ttl={$fields['ttl']}&tel={$fields['tel']}&eml={$fields['eml']}&vid={$fields['vid']}&curr={$fields['curr']}&p1={$fields['p1']}&p2={$fields['p2']}&p3={$fields['p3']}&p4={$fields['p4']}&cbk={$fields['cbk']}&cst={$fields['cst']}&crl={$fields['crl']}&hsh={$generated_hash}&autopay={$fields['autopay']}");
+				return Redirect::to("https://payments.ipayafrica.com/v3/ke?live={$fields['live']}&oid={$fields['oid']}&inv={$fields['inv']}&ttl={$fields['ttl']}&tel={$fields['tel']}&eml={$fields['eml']}&vid={$fields['vid']}&curr={$fields['curr']}&cbk={$fields['cbk']}&cst={$fields['cst']}&crl={$fields['crl']}&hsh={$generated_hash}");
 				// header("Location:https://payments.ipayafrica.com/v3/ke?live={$fields['live']}&oid={$fields['oid']}&inv={$fields['inv']}&ttl={$fields['ttl']}&tel={$fields['tel']}&eml={$fields['eml']}&vid={$fields['vid']}&curr={$fields['curr']}&p1={$fields['p1']}&p2={$fields['p2']}&p3={$fields['p3']}&p4={$fields['p4']}&cbk={$fields['cbk']}&cst={$fields['cst']}&crl={$fields['crl']}&hsh={$generated_hash}&autopay={$fields['autopay']}");
 			}
 			
@@ -643,10 +646,30 @@ class CheckoutFrontController extends Controller
 			$InvoiceDownloads .= '<a href="'.route('frontend.order-invoice', [$row['id'], $row['order_no']]).'" style="background:'.$gtext['theme_color'].';display:block;text-align:center;padding:7px 15px;margin:0 10px 10px 0;border-radius:3px;text-decoration:none;color:#fff;float:left;">'.__('Invoice').' ('.$row['order_no'].')</a>';
 			$invoice_index++;
 		}
-		
+		Mail::to($mdata['customer_email'])->send(new InvoiceMail($data));
+
+		// return response()->with('success', 'Thank you for contacting us!');
+		// if($gtext['mailer'] == 'smtp'){
+		// 	$mail->SMTPDebug = 2; //0 = off (for production use), 1 = client messages, 2 = client and server messages
+		// 	$mail->isSMTP();
+		// 	$mail->Host       = 'mail.kenlinksolutions.com';
+		// 	$mail->SMTPAuth   = true;
+		// 	// $mail->SMTPKeepAlive = true;
+		// 	$mail->SMTPOptions = array(
+		// 							'ssl' => array(
+		// 							'verify_peer' => false,
+		// 							'verify_peer_name' => false,
+		// 							'allow_self_signed' => true
+		// 						)
+		// 					);
+		// 	$mail->Username   = 'bochieng@kenlinksolutions.com';
+		// 	$mail->Password   = 'benja@12345';
+		// 	$mail->SMTPSecure = 'ssl/tls';
+		// 	$mail->Port       = 25;
+		// }
 		if($gtext['ismail'] == 1){
 			try {
-
+				
 				require 'vendor/autoload.php';
 				$mail = new PHPMailer(true);
 				$mail->CharSet = "UTF-8";
@@ -656,6 +679,14 @@ class CheckoutFrontController extends Controller
 					$mail->isSMTP();
 					$mail->Host       = $gtext['smtp_host'];
 					$mail->SMTPAuth   = true;
+					$mail->SMTPDebug = 2;
+					$mail->SMTPOptions = array(
+						'ssl' => array(
+						'verify_peer' => false,
+						'verify_peer_name' => false,
+						'allow_self_signed' => true
+						)
+						);
 					$mail->Username   = $gtext['smtp_username'];
 					$mail->Password   = $gtext['smtp_password'];
 					$mail->SMTPSecure = $gtext['smtp_security'];
@@ -667,11 +698,11 @@ class CheckoutFrontController extends Controller
 				$mail->addAddress($mdata['customer_email'], $mdata['customer_name']);
 				foreach($orderDataArr as $row){
 				// $mail->addAddress($row['seller_email'], $row['shop_name']);
-				$mail->addCC($row['seller_email'], $row['shop_name']);
+				// $mail->addCC($row['seller_email'], $row['shop_name']);
 				}
 				$mail->isHTML(true);
 				$mail->CharSet = "utf-8";
-				$mail->Subject = $orderNos.' - '. __('Your order is successfully.');
+				$mail->Subject = $orderNos.' - '. __('Your order is successful.');
 				
 				$mail->Body = '<table style="background-color:#edf2f7;color:#111111;padding:40px 0px;line-height:24px;font-size:14px;" border="0" cellpadding="0" cellspacing="0" width="100%">	
 								<tr>

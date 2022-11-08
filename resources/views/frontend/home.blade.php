@@ -40,7 +40,7 @@
 				<div class="col-lg">
 					<div class="home-slider owl-carousel">
 						@foreach ($slider as $row)
-						<div class="slider-item">
+						<div class="slider-item"  data-aos="zoom-in-up">
 							<a href="{{ $row->url }}"><img src="{{ asset('media/'.$row->image) }}" alt="" /></a>
 						</div>
 						@endforeach
@@ -52,13 +52,19 @@
 	<!-- /Home Slider/ -->
 
 	<!-- Banner Item -->
-	<div class="section">
+	<div class="section"  style="background-color: #e9ecef">
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4">
+				<div class="section-heading">
+					<h3 class="title animate__animated animate__bounce">Top Categories</h3>
+					<a class="btn theme-btn seeall-btn" href="{{ route('frontend.new-arrivals') }}">{{ __('See all') }}</a>
+				</div>
+				<div class="container-fluid">
+				<div class="row">
+				<div class="col-xs-6 col-sm-6 col-md-6">
 					@if($position_1['is_publish'] == 1)
 					<a href="{{ $position_1['url'] }}">
-					<div class="banner-item mb25">
+					<div class="banner-item mb25" data-aos="fade-right"  data-aos-delay="1000">
 						<div class="banner-item-img">
 							<img src="{{ asset('media/'.$position_1['image']) }}" alt="{{ $position_1['text_1'] }}"/>
 						</div>
@@ -70,8 +76,10 @@
 					</div>
 					</a>
 					@endif
+				</div>
+				<div class="col-xs-6 col-sm-6 col-md-6">
 					@if($position_2['is_publish'] == 1)
-					<div class="banner-item mb25">
+					<div class="banner-item mb25"  data-aos="fade-right"  data-aos-delay="1000">
 						<div class="banner-item-img">
 							<img src="{{ asset('media/'.$position_2['image']) }}" alt="{{ $position_2['text_1'] }}"/>
 						</div>
@@ -83,10 +91,12 @@
 					</div>
 					@endif
 				</div>
+				</div>
+				</div>
 				@if($position_3['is_publish'] == 1)
-				<div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4">
+				<div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
 					<div class="banner-item mb25">
-						<div class="banner-item-img">
+						<div class="banner-item-img" data-aos="fade-up"  data-aos-delay="1000">
 							<img src="{{ asset('media/'.$position_3['image']) }}" alt="{{ $position_3['text_1'] }}"/>
 						</div>
 						<div class="banner-item-info">
@@ -97,9 +107,9 @@
 					</div>
 				</div>
 				@endif
-				<div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4">
+				<div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
 					@if($position_4['is_publish'] == 1)
-					<div class="banner-item mb25">
+					<div class="banner-item mb25" data-aos="fade-left"  data-aos-delay="1000">
 						<div class="banner-item-img">
 							<img src="{{ asset('media/'.$position_4['image']) }}" alt="{{ $position_4['text_1'] }}"/>
 						</div>
@@ -111,7 +121,7 @@
 					</div>
 					@endif
 					@if($position_5['is_publish'] == 1)
-					<div class="banner-item mb25">
+					<div class="banner-item mb25" data-aos="fade-left"  data-aos-delay="1000">
 						<div class="banner-item-img">
 							<img src="{{ asset('media/'.$position_5['image']) }}" alt="{{ $position_5['text_1'] }}"/>
 						</div>
@@ -150,34 +160,26 @@
 	<!--/Brand Slider/-->
 	
 	<!-- New Arrivals Section -->
-	<div class="section">
+	<div class="section" style="background-color: #dee2e6">
 		<div class="container">
 			<div class="row">
 				<div class="section-heading">
-					<h3 class="title">{{ __('New Arrivals') }}</h3>
+					<h3 class="title animate__animated animate__bounce">{{ __('New Arrivals') }}</h3>
 					<a class="btn theme-btn seeall-btn" href="{{ route('frontend.new-arrivals') }}">{{ __('See all') }}</a>
 				</div>
 			</div>
 
 			<div class="row owl-carousel caro-common category-carousel">
 				@foreach ($new_arrivals as $row)
-				<div class="col-lg">
-					<div class="item-card mb30">
+				<div class="col-lg col-sm-6">
+					<div class="item-card mb30"  data-aos="fade-up" data-aos-delay="1000" data-aos-easing="linear">
 						<div class="item-image">
 							@if($row->labelname != '')
 							<ul class="labels-list">
 								<li><span class="tplabel" style="background:{{ $row->labelcolor }};">{{ $row->labelname }}</span></li>
 							</ul>
 							@endif
-							<ul class="product-action">
-								@if(($row->variation_color != '') || ($row->variation_size != ''))
-								<li><a href="{{ route('frontend.product', [$row->id, $row->slug]) }}"><i class="bi bi-cart"></i></a></li>
-								@else
-								<li><a class="addtocart" data-id="{{ $row->id }}" href="javascript:void(0);"><i class="bi bi-cart"></i></a></li>
-								@endif
-								<li><a href="{{ route('frontend.product', [$row->id, $row->slug]) }}"><i class="bi bi-zoom-in"></i></a></li>
-								<li><a class="addtowishlist" data-id="{{ $row->id }}" href="javascript:void(0);"><i class="bi bi-heart"></i></a></li>
-							</ul>
+						
 							@if($row->variation_color != '')
 							<ul class="color-list">
 							  @foreach(explode(',', $row->variation_color) as $color)
@@ -190,6 +192,15 @@
 								<img src="{{ asset('media/'.$row->f_thumbnail) }}" class="prod-img"  alt="{{ $row->title }}"/>
 							</a>
 						</div>
+						<ul class="product-action">
+							@if(($row->variation_color != '') || ($row->variation_size != ''))
+							<li style="display: inline"><a href="{{ route('frontend.product', [$row->id, $row->slug]) }}"><i class="bi bi-cart"></i></a></li>
+							@else
+							<li style="display: inline"><a class="addtocart" data-id="{{ $row->id }}" href="javascript:void(0);"><i class="bi bi-cart"></i></a></li>
+							@endif
+							<li style="display: inline"><a href="{{ route('frontend.product', [$row->id, $row->slug]) }}"><i class="bi bi-zoom-in"></i></a></li>
+							<li style="display: inline"><a class="addtowishlist" data-id="{{ $row->id }}" href="javascript:void(0);"><i class="bi bi-heart"></i></a></li>
+						</ul>
 						<h4 class="item-title"><a href="{{ route('frontend.product', [$row->id, $row->slug]) }}">{{ str_limit($row->title) }}</a></h4>
 						{{-- <div class="brand-card">
 							<div class="brand">
@@ -200,6 +211,7 @@
 							</div>
 						</div> --}}
 						<div class="item-price-card">
+							
 							@if($row->sale_price != '')
 								@if($gtext['currency_position'] == 'left')
 								<div class="item-price">{{ $gtext['currency_icon'] }} {{ number_format($row->sale_price) }}</div>
@@ -482,20 +494,31 @@
 	</div>
 	<!-- /Available Offer Section/ -->
 
+		<!--Add Part-->
+		@if($trending_data['is_publish'] == 1)
+		<div class="container-fluid mb-5">
+			<div class="add-part-section mb-5 mt-5">
+				<img class="add-bg" src="{{ asset('media/'.$trending_data['image']) }}" alt="">
+					
+							{{-- <span class="img-text"><p>TEXT</p></span> --}}
+					
+			</div>
+		</div>
+	@endif
 
 	<!-- Gift Cards Section -->
 	<div class="section">
 		<div class="container">
 			<div class="row">
-				<div class="section-heading">
-					<h3 class="title">{{ __('Gift Cards') }}</h3>
+				<div class="section-heading" data-aos="fade-up">
+					<h3 class="title slideInLeft animated" >{{ __('Gift Cards') }}</h3>
 					<a class="btn theme-btn seeall-btn" href="{{ route('frontend.available-offer') }}">{{ __('See all') }}</a>
 				</div>
 			</div>
 			<div class="row">
 				@foreach ($gift_cards as $row)
-				<div class="col-lg-4">
-					<div class="item-card mb30">
+				<div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+					<div class="item-card mb30 slideInDown animated">
 						<div class="item-image_gc">
 							@if($row->labelname != '')
 							<ul class="labels-list">
@@ -521,7 +544,7 @@
 							@endif
 							<a href="{{ route('frontend.product', [$row->id, $row->slug]) }}"><img src="{{ asset('media/'.$row->f_thumbnail) }}" alt="{{ $row->title }}"/></a>
 						</div>
-						<h4 class="item-title"><a href="{{ route('frontend.product', [$row->id, $row->slug]) }}">{{ str_limit($row->title) }}</a></h4>
+						<h4 class="item-title mt-3"><a href="{{ route('frontend.product', [$row->id, $row->slug]) }}">{{ str_limit($row->title) }}</a></h4>
 						
 						<div class="item-price-card">
 							@if($row->sale_price != '')
@@ -559,30 +582,41 @@
 	</div>
 	<!-- /Gift Cards Section/ -->
 	
-	<!--Add Part-->
-	@if($trending_data['is_publish'] == 1)
-	<div class="container-fluid">
-		<div class="add-part-section mx-auto">
-			<div class="add-bg w-100" style="background-image:url({{ asset('media/'.$trending_data['image']) }}); min-height: 200px">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-4 offset-lg-4 col-md-12 col-sm-12 col-12">
-							<div class="add-card">
-								<h2>{{ $trending_data['title'] }}</h2>
-								@if($trending_data['short_desc'] !='')
-								<p>{{ $trending_data['short_desc'] }}</p>
-								@endif
-								<a class="btn theme-btn" href="{{ $trending_data['url'] }}">{{ __('Shop Now') }}</a>
-							</div>
-						</div>
-					</div>
+
+	<!-- /Add Part/ -->
+	{{-- <div class="container">
+		<div class="row">
+			<div class="col-lg-4 offset-lg-4 col-md-12 col-sm-12 col-12">
+				<div class="add-card">
+					<h2>{{ $trending_data['title'] }}</h2>
+					@if($trending_data['short_desc'] !='')
+					<p>{{ $trending_data['short_desc'] }}</p>
+					@endif
+					<a class="btn theme-btn" href="{{ $trending_data['url'] }}">{{ __('Shop Now') }}</a>
 				</div>
 			</div>
 		</div>
-	</div>
-	@endif
-	<!-- /Add Part/ -->
+	</div> --}}
 	
+		{{-- <!--@if($trending_data['is_publish'] == 1)-->
+	<!--<div class="add-part-section">-->
+	<!--	<div class="add-bg" style="background-image:url({{ asset('public/media/'.$trending_data['image']) }})">-->
+	<!--		<div class="container-fluid">-->
+	<!--			<div class="row">-->
+	<!--				<div class="col-lg-4 offset-lg-4 col-md-12 col-sm-12 col-12">-->
+						<!--<div class="add-card">-->
+						<!--	<h2>{{ $trending_data['title'] }}</h2>-->
+						<!--	@if($trending_data['short_desc'] !='')-->
+						<!--	<p>{{ $trending_data['short_desc'] }}</p>-->
+						<!--	@endif-->
+						<!--	<a class="btn theme-btn" href="{{ $trending_data['url'] }}">{{ __('Shop Now') }}</a>-->
+						<!--</div>-->
+	<!--				</div>-->
+	<!--			</div>-->
+	<!--		</div>-->
+	<!--	</div>-->
+	<!--</div>-->
+	<!--@endif--> --}}
 	@if(Session::has('subscribePopupOff'))
 	@else
 		@if($gtext['is_subscribe_popup'] == 1)

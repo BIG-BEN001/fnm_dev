@@ -104,7 +104,7 @@
 					</div>
 					
 					@if($data->short_desc != '')
-					<div class="pr_extra">{{ $data->short_desc }}</div>
+						<div class="pr_extra">{{ $data->short_desc }}</div>
 					@endif
 					
 					{{-- @if($data->brandname != '')
@@ -223,10 +223,14 @@
 						<a href="#des_reviews" data-bs-toggle="tab">{{ __('Reviews') }} ({{ $data->TotalReview }})</a>
 					</div>
 					<div class="tab-content">
-						<div id="des_description" class="tab-pane active">
+						<div id="des_description col-lg-6" class="tab-pane active">
 							<div class="entry">
 								{!! $data->description !!}
 							</div>
+							<div class="col-lg-6">
+								<img src="{{ asset('media/chart.jpg') }}" alt="">
+							</div>
+							
 						</div>
 						<div id="des_reviews" class="tab-pane">
 							<div class="review-content">
